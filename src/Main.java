@@ -12,7 +12,7 @@ public class Main {
         }*/
 
         for(char x : str.toCharArray()){
-            if(x == t) answer++;
+            if(x == t) answer++; 
         }
 
         return answer;

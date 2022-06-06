@@ -4,23 +4,27 @@ public class Main {
 
     public String solution(String str){
         String answer = "";
-        for(char x : str.toCharArray()){
-            ///char a = 'Z'; //A:65 Z : 90, a 97 z : 122
-            if(x>=97 && x<=122){
-                answer += (char)(x-32);
-            }else{
-                answer += (char)(x+32);
-            }
+        int m = Integer.MIN_VALUE, pos;
+        while ((pos=str.indexOf(' '))!=-1){
 
+            System.out.println("pos:" + pos);
+            String tmp = str.substring(0,pos);
+            int len =tmp.length();
+            if(len>m){
+                m=len;
+                answer=tmp;
+            }
+            str = str.substring(pos+1);
         }
-        
+
+        if(str.length()>m) answer = str;
 
         return answer;
     }
     public static void main(String[] args){
         Main T = new Main();
         Scanner in=new Scanner(System.in);
-        String str = in.next();
+        String str = in.nextLine();//한줄을 입력하는 경우
         System.out.println(T.solution(str));
 
     }

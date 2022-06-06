@@ -2,18 +2,18 @@ import java.util.Scanner;
 
 public class Main {
 
-    public int solution(String str, char t){
-        int answer =0;
-        str = str.toUpperCase();
-        t=Character.toUpperCase(t);
-
-       /* for(int i=0; i<str.length();i++){
-            if(str.charAt(i) == t) answer++;
-        }*/
-
+    public String solution(String str){
+        String answer = "";
         for(char x : str.toCharArray()){
-            if(x == t) answer++; 
+            ///char a = 'Z'; //A:65 Z : 90, a 97 z : 122
+            if(x>=97 && x<=122){
+                answer += (char)(x-32);
+            }else{
+                answer += (char)(x+32);
+            }
+
         }
+        
 
         return answer;
     }
@@ -21,8 +21,7 @@ public class Main {
         Main T = new Main();
         Scanner in=new Scanner(System.in);
         String str = in.next();
-        char c = in.next().charAt(0);
-        System.out.println(T.solution(str, c));
+        System.out.println(T.solution(str));
 
     }
 }

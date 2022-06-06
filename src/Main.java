@@ -4,22 +4,14 @@ import java.util.Scanner;
 public class Main {
 
     public String solution(String str){
-        String answer;
-        char[] s = str.toCharArray();
-        int lt=0, rt=str.length()-1;
+        String answer = "";
 
-        while(lt<rt){
-            if(!Character.isAlphabetic(s[lt])) lt++;
-            else if(!Character.isAlphabetic(s[rt]))rt--;
-            else {
-                char tmp = s[lt];
-                s[lt] = s[rt];
-                s[rt] = tmp;
-                lt++;
-                rt--;
-            }
+        for(int i = 0; i<str.length();i++)
+        {
+            if(str.indexOf(str.charAt(i))==i) answer +=str.charAt(i);//중복을 찾는 방법 외우면 좋음.
+
         }
-        answer = String.valueOf(s);
+
         return answer;
     }
     public static void main(String[] args){

@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public String solution(String str){
+    public String solution(String str){ 
         String answer = "";
 
         for(int i = 0; i<str.length();i++)

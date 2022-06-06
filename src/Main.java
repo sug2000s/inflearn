@@ -1,31 +1,37 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    public String solution(String str){
-        String answer = "";
-        int m = Integer.MIN_VALUE, pos;
-        while ((pos=str.indexOf(' '))!=-1){
-
-            System.out.println("pos:" + pos);
-            String tmp = str.substring(0,pos);
-            int len =tmp.length();
-            if(len>m){
-                m=len;
-                answer=tmp;
+    public ArrayList<String> solution(int n, String[] str){
+        ArrayList<String> answer = new ArrayList<String>();
+        for(String x : str){
+            char[] s = x.toCharArray();
+            int lt = 0, rt=x.length()-1;
+            while(lt<rt){
+                char tmp = s[lt];
+                s[lt]=s[rt];
+                s[rt] = tmp;
+                lt++;
+                rt--;
             }
-            str = str.substring(pos+1);
+            String tmp = String.valueOf(s);
+            answer.add(tmp);
         }
-
-        if(str.length()>m) answer = str;
-
         return answer;
     }
     public static void main(String[] args){
         Main T = new Main();
-        Scanner in=new Scanner(System.in);
-        String str = in.nextLine();//한줄을 입력하는 경우
-        System.out.println(T.solution(str));
+        Scanner kb =new Scanner(System.in);
+        int n = kb.nextInt();
+        String[] str = new String[n];
+        for(int i=0; i<n; i ++){
+            str[i] = kb.next();
+        }
+
+        for(String x : T.solution(n, str)){
+         System.out.println(x);
+        }
 
     }
 }

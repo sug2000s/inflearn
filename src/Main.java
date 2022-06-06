@@ -4,20 +4,19 @@ import java.util.Scanner;
 
 public class Main {
 
-    public String solution(String s){
-        String answer = "NO";
+    public int solution(String s){
+        String answer = "";
+        for(char x : s.toCharArray()){
+            if(Character.isDigit(x)) answer += x;
+        }
 
-        s=s.toUpperCase().replaceAll("[^A-Z]]","");
-        String tmp = new StringBuilder(s).reverse().toString();
-        if(s.equals(tmp)) answer="YES";
 
-
-        return answer;
+        return Integer.parseInt(answer);
     }
     public static void main(String[] args){
         Main T = new Main();
         Scanner kb =new Scanner(System.in);
-        String str = kb.nextLine();
+        String str = kb.next();
         System.out.println(T.solution(str));
 
     }

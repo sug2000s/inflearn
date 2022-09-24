@@ -1,44 +1,47 @@
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
+class Main {
+    public int solution(int[][] board, int[] moves){
+        int answer=0;
+        Stack<Integer> stack = new Stack<Integer>();
 
-public class Main {
-
-    public int[] solution(String s, char t){
-        int[] answer = new int[s.length()];
-        int p = 1000;
-        for(int i=0; i<s.length(); i++){
-            if(s.charAt(i) == t){
-                p=0;
-                answer[i] = p;
-            }else{
-                p++;
-                answer[i]=p;
+        for(int ix : moves){
+            boolean chk = true;
+            int cnt = 0;
+            while(chk){
+                int pickNum = board[cnt++][ix-1];
+                if(pickNum > 0){
+                    int prevNum = 0;
+                    if(!stack.empty()){
+                        prevNum = stack.pop();
+                    }
+                    if(prevNum != pickNum){
+                        stack.push(prevNum);
+                        stack.push(pickNum);
+                    }else{
+                        answer+=2;
+                    }
+                    chk = false;
+                }
             }
-        }
-        p = 1000;
-        for(int i=s.length()-1; i>=0; i--){
-            if(s.charAt(i) == t){
-                p=0;
-            }else{
-                p++;
-                answer[i]=Math.min(answer[i],p);
-            }
-        }
 
 
+        }
 
         return answer;
     }
     public static void main(String[] args){
         Main T = new Main();
-        Scanner kb =new Scanner(System.in);
-        String str = kb.next();
-        char c = kb.next().charAt(0);
-        for(int x : T.solution(str,c)){
-            System.out.println(x+ " " );
+        Scanner kb = new Scanner(System.in);
+        int n=kb.nextInt();
+        int[][] board=new int[n][n];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                board[i][j]=kb.nextInt();
+            }
         }
-
-
+        int m=kb.nextInt();
+        int[] moves=new int[m];
+        for(int i=0; i<m; i++) moves[i]=kb.nextInt();
+        System.out.println(T.solution(board, moves));
     }
 }

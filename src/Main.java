@@ -1,47 +1,42 @@
 import java.util.*;
 class Main {
-    public int solution(int[][] board, int[] moves){
+    public int solution(String str){
         int answer=0;
-        Stack<Integer> stack = new Stack<Integer>();
+        Stack<String > stack = new Stack<String>();
+        String[] arrStr = str.split("");
+        String numstr = "1234567890";
+        for(String s : arrStr){
+            if(numstr.indexOf(s)>0){
+                stack.push(s);
+            }else{
+                int sum = 0;
 
-        for(int ix : moves){
-            boolean chk = true;
-            int cnt = 0;
-            while(chk){
-                int pickNum = board[cnt++][ix-1];
-                if(pickNum > 0){
-                    int prevNum = 0;
-                    if(!stack.empty()){
-                        prevNum = stack.pop();
-                    }
-                    if(prevNum != pickNum){
-                        stack.push(prevNum);
-                        stack.push(pickNum);
-                    }else{
-                        answer+=2;
-                    }
-                    chk = false;
+                String s2 = stack.pop();
+                String s1 = stack.pop();
+
+                if("*".equals(s)){
+                    sum = Integer.parseInt(s1) * Integer.parseInt(s2);
+                }else if("/".equals(s)){
+                    sum = Integer.parseInt(s1) / Integer.parseInt(s2);
+                }else if("+".equals(s)){
+                    sum = Integer.parseInt(s1) + Integer.parseInt(s2);
+                }else if("-".equals(s)){
+                    sum = Integer.parseInt(s1) - Integer.parseInt(s2);
                 }
+                stack.push(Integer.toString(sum));
+
             }
-
-
         }
+
+        answer = Integer.parseInt(stack.peek());
 
         return answer;
     }
     public static void main(String[] args){
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
-        int n=kb.nextInt();
-        int[][] board=new int[n][n];
-        for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++){
-                board[i][j]=kb.nextInt();
-            }
-        }
-        int m=kb.nextInt();
-        int[] moves=new int[m];
-        for(int i=0; i<m; i++) moves[i]=kb.nextInt();
-        System.out.println(T.solution(board, moves));
+        //String str=kb.next();
+        String str= "352+*9-";
+        System.out.println(T.solution(str));
     }
 }

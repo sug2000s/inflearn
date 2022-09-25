@@ -1,42 +1,35 @@
 import java.util.*;
 class Main {
-    public int solution(String str){
+    public int solution(int n, int k){
         int answer=0;
-        Stack<String > stack = new Stack<String>();
-        String[] arrStr = str.split("");
-        String numstr = "1234567890";
-        for(String s : arrStr){
-            if(numstr.indexOf(s)>0){
-                stack.push(s);
-            }else{
-                int sum = 0;
+        Queue<Integer> qu = new LinkedList<Integer>();
 
-                String s2 = stack.pop();
-                String s1 = stack.pop();
+        for(int i=1; i<=n; i++){
+            qu.add(i);
 
-                if("*".equals(s)){
-                    sum = Integer.parseInt(s1) * Integer.parseInt(s2);
-                }else if("/".equals(s)){
-                    sum = Integer.parseInt(s1) / Integer.parseInt(s2);
-                }else if("+".equals(s)){
-                    sum = Integer.parseInt(s1) + Integer.parseInt(s2);
-                }else if("-".equals(s)){
-                    sum = Integer.parseInt(s1) - Integer.parseInt(s2);
-                }
-                stack.push(Integer.toString(sum));
-
-            }
         }
+        int cnt = 1;
 
-        answer = Integer.parseInt(stack.peek());
+        while(qu.size()>1){
+            int tmp = qu.poll();
+            if(cnt == 3){
+                cnt = 0;
+            }else{
+                qu.add(tmp);
+            }
+            cnt++;
+        }
+        answer = qu.poll();
 
         return answer;
     }
     public static void main(String[] args){
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
-        //String str=kb.next();
-        String str= "352+*9-";
-        System.out.println(T.solution(str));
+        //int n=kb.nextInt();//8
+        //int k=kb.nextInt();//3
+        int n=8;
+        int k=3;
+        System.out.println(T.solution(n, k));
     }
 }

@@ -1,35 +1,67 @@
 import java.util.*;
+
 class Main {
-    public int solution(int n, int k){
-        int answer=0;
-        Queue<Integer> qu = new LinkedList<Integer>();
+    public int[] solution_selectionSorting(int n, int[] arr){
+        //1. 선택 정열
+        for(int i=0; i<arr.length;i++){
+            for(int j=i+1; j<arr.length;j++){
+                int selNum = arr[i];
+                int movNum = arr[j];
+                if(selNum > movNum){
+                    arr[j] = selNum;
+                    arr[i] = movNum;
 
-        for(int i=1; i<=n; i++){
-            qu.add(i);
-
-        }
-        int cnt = 1;
-
-        while(qu.size()>1){
-            int tmp = qu.poll();
-            if(cnt == 3){
-                cnt = 0;
-            }else{
-                qu.add(tmp);
+                }
             }
-            cnt++;
         }
-        answer = qu.poll();
-
-        return answer;
+        return arr;
     }
+
+    public int[] solution_bubbleSorting(int n, int[] arr){
+        //2. 버블 정열
+        for(int i=0; i<arr.length;i++){
+            for(int j=i+1; j<arr.length;j++){
+                int prevNum = arr[j-1];
+                int nextNum = arr[j];
+                if(prevNum > nextNum){
+                    arr[j] = prevNum;
+                    arr[j-1] = nextNum;
+                }
+            }
+
+        }
+
+        return arr;
+    }
+
+    public int[] solution_insertSorting(int n, int[] arr){
+        //3. 삽입 정열
+        for(int i=1;i<arr.length;i++){
+
+            for(int j=i; j>0; j--){
+                int prevNum = arr[j-1];
+                int currNum = arr[j];
+                if(prevNum > currNum){
+                    arr[j-1] = currNum;
+                    arr[j] = prevNum;
+                }
+
+            }
+
+        }
+        return arr;
+    }
+
     public static void main(String[] args){
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
-        //int n=kb.nextInt();//8
-        //int k=kb.nextInt();//3
-        int n=8;
-        int k=3;
-        System.out.println(T.solution(n, k));
+        int n=kb.nextInt();
+        int[] arr=new int[n];
+        for(int i=0; i<n; i++) arr[i]=kb.nextInt();
+        for(int x : T.solution_insertSorting(n, arr)) System.out.print(x+" ");
     }
 }
+/*
+6
+13 5 11 7 23 15
+ */

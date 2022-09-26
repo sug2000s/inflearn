@@ -1,46 +1,38 @@
 import java.util.*;
-class Node{
-    int data;
-    Node lt,rt;
-    Node(int data){
-        this.data = data;
-        lt=null;
-        rt=null;
-    }
-}
+class Main {
+    int[] dx = {-1,1, 5};
 
-public class Main{
-    Node root;
-    public void BFS(Node root){
-        Queue<Node> Q=new LinkedList<>(); 
-        Q.offer(root);
-        int L = 0;
+    int BFS(int s, int e){
+        Queue<Integer> Q = new LinkedList<Integer>();
+        Q.offer(s);
+        int answer = 0;
 
         while(!Q.isEmpty()){
-            int len = Q.size();
-            System.out.print(L + " : ");
-            for(int i=0; i<len; i++){
-                Node cur =Q.poll();
-                System.out.print(cur.data);
-                if(cur.lt != null) Q.offer(cur.lt);
-                if(cur.rt != null) Q.offer(cur.rt);
+            int cur = Q.poll();
+            for(int i=0; i<dx.length; i++){
+                int last = cur + dx[i];
+                if(last == e){
+                    return last;
+                }else{
+                    Q.offer(last);
+                }
             }
-            L++;
-            System.out.println();
-
+            answer++;
         }
-
+        return  0;
     }
 
-    public static void main(String args[]) {
-        Main tree=new Main();
-        tree.root=new Node(1);
-        tree.root.lt=new Node(2);
-        tree.root.rt=new Node(3);
-        tree.root.lt.lt=new Node(4);
-        tree.root.lt.rt=new Node(5);
-        tree.root.rt.lt=new Node(6);
-        tree.root.rt.rt=new Node(7);
-        tree.BFS(tree.root);
+    public static void main(String[] args){
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        int s=kb.nextInt();
+        int e=kb.nextInt();
+        System.out.println(T.BFS(s, e));
     }
 }
+/*
+5 14
+
+8 3
+
+ */

@@ -12,7 +12,7 @@ class Node{
 public class Main{
     Node root;
     public void BFS(Node root){
-        Queue<Node> Q=new LinkedList<>();
+        Queue<Node> Q=new LinkedList<>(); 
         Q.offer(root);
         int L = 0;
 

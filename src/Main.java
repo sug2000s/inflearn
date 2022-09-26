@@ -1,39 +1,52 @@
 import java.util.*;
-class Node{
-    int data;
-    Node lt, rt;
-    public Node(int val) {
-        data=val;
-        lt=rt=null;
-    }
-}
-
-public class Main{
-    Node root;
-    int BFS(Node root){
-        Queue<Node> Q = new LinkedList<Node>();
-        Q.offer(root);
-        int L = 0 ;
-
+class Main {
+    static int n, m, answer=0;
+    static int[][] graph;
+    static int[] ch;
+    public void DFS(int v){
+        Queue<Integer> Q = new LinkedList<Integer>();
+        Q.offer(v);
         while(!Q.isEmpty()){
-            Node node = Q.poll();
-            if(node.lt == null || node.rt == null ) return L-1;
-            if(node.lt != null) Q.offer(node.lt );
-            if(node.rt != null) Q.offer(node.rt );
-            L++;
+            Q.poll();
+            for(int i=1; i<graph.length; i++){
+                for(int j=1; j<graph[i].length;j++){
+                    int nextnum = graph[i][j];
+                    if(nextnum>0)Q.offer(j);
+                }
+            }
+
 
         }
 
-        return 0;
     }
 
-    public static void main(String args[]) {
-        Main tree=new Main();
-        tree.root=new Node(1);
-        tree.root.lt=new Node(2);
-        tree.root.rt=new Node(3);
-        tree.root.lt.lt=new Node(4);
-        tree.root.lt.rt=new Node(5);
-        System.out.println(tree.BFS(tree.root));
+    public static void main(String[] args){
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        n=kb.nextInt();
+        m=kb.nextInt();
+        graph=new int[n+1][n+1];
+        ch=new int[n+1];
+        for(int i=0; i<m; i++){
+            int a=kb.nextInt();
+            int b=kb.nextInt();
+            graph[a][b]=1;
+        }
+        ch[1]=1;
+        T.DFS(1);
+        System.out.println(answer);
     }
 }
+/*
+
+5 9
+1 2
+1 3
+1 4
+2 1
+2 3
+2 5
+3 4
+4 2
+4 5
+ */

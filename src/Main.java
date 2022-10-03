@@ -1,36 +1,39 @@
 import java.util.*;
 class Main{
-    static String answer="NO";
-    static int n, total=0;
-    boolean flag=false;
+    static int answer=Integer.MIN_VALUE, c, n;
     public void DFS(int L, int sum, int[] arr){
         if(L==n){
-            if(sum == total/2){
-                answer = "YES";
+            if(sum<=c && sum>=answer){
+                answer = sum;
             }
-        }else{
-            sum = sum + arr[L];
-            DFS(L+1, sum, arr);
-            sum = sum - arr[L];
-            DFS(L+1, sum, arr);
 
+        }else{
+            DFS(L+1,sum+arr[L],arr);
+            DFS(L+1,sum,arr);
         }
 
     }
+
     public static void main(String[] args){
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
+        c=kb.nextInt();
         n=kb.nextInt();
         int[] arr=new int[n];
         for(int i=0; i<n; i++){
             arr[i]=kb.nextInt();
-            total+=arr[i];
         }
         T.DFS(0, 0, arr);
         System.out.println(answer);
     }
 }
+
 /*
-6
-1 3 5 6 7 10
+
+259 5
+81
+58
+42
+33
+61
  */

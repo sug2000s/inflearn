@@ -1,15 +1,17 @@
 import java.util.*;
 class Main{
-    static int answer=Integer.MIN_VALUE, c, n;
-    public void DFS(int L, int sum, int[] arr){
+    static int answer=Integer.MIN_VALUE, n, m;
+    boolean flag=false;
+    public void DFS(int L, int sum, int time, int[] ps, int[] pt){
+
         if(L==n){
-            if(sum<=c && sum>=answer){
+            if(time<=m && sum>=answer){
                 answer = sum;
             }
 
         }else{
-            DFS(L+1,sum+arr[L],arr);
-            DFS(L+1,sum,arr);
+            DFS(L+1,sum+ps[L],time + pt[L],ps,pt);
+            DFS(L+1,sum,time,ps,pt);
         }
 
     }
@@ -17,23 +19,26 @@ class Main{
     public static void main(String[] args){
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
-        c=kb.nextInt();
         n=kb.nextInt();
-        int[] arr=new int[n];
+        m=kb.nextInt();
+        int[] a=new int[n];
+        int[] b=new int[n];
         for(int i=0; i<n; i++){
-            arr[i]=kb.nextInt();
+            a[i]=kb.nextInt();
+            b[i]=kb.nextInt();
         }
-        T.DFS(0, 0, arr);
+        T.DFS(0, 0, 0, a, b);
         System.out.println(answer);
     }
 }
 
 /*
 
-259 5
-81
-58
-42
-33
-61
+5 20
+10 5
+25 12
+15 8
+6 3
+7 4
+
  */

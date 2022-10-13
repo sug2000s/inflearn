@@ -1,62 +1,79 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 class Main {
-    static int m;
-    static int k;
-    static int[] chk;
-    static int[] pm;
-    static int ans = 0;
-    void DFS(int L, int s, int sum, int[] arr){
-        if(L==m){
-            /*for(int i=0 ; i<chk.length; i++){
-                if(chk[i]>0)System.out.print(arr[i]);
+    class Point{
+        private int x;
+        private int y;
+        private int dir;
+        Point(int x, int y, int dir){
+            this.x = x;
+            this.y= y;
+            this.dir=dir;
+        }
+    }
+    static int[] dx = { 1, 1 ,-1, -1};
+    static int[] dy = {-1 ,1 ,1 ,-1};
+    static Queue<Point> Q = new LinkedList<Point>();
 
-            }*/
-            if(sum%k==0){
-                System.out.println(Arrays.toString(pm));
-                ans++;
+    void BFS(int x, int y,int[][] board){
+        board[y][x] = 1;
+
+        for(int i=0;i<4;i++){
+            int nx = x+dx[i];
+            int ny = y+dy[i];
+            if(nx>=0 && ny >=0 && nx < 8 && ny<8 && board[ny][nx] == 0){
+                board[ny][nx] = 1;
+                Q.add(new Point(nx, ny, i));
             }
 
+        }
 
-        }else{
-            for(int i=s;i <arr.length; i++){
-                if(chk[i]==0){
-                    chk[i] = 1;
-                    pm[L] = arr[i];
-                    DFS(L+1, i+1, sum + arr[i] ,arr);
-                    chk[i] = 0;
-                }
+        while(!Q.isEmpty()){
+            Point p = Q.poll();
+            int dir = p.dir;
+            int nx = p.x+dx[p.dir];
+            int ny = p.y+dy[p.dir];
+            if(nx>=0 && ny >=0 && nx < 8 && ny<8 && board[ny][nx] == 0){
+                board[ny][nx] = 1;
+                Q.add(new Point(nx, ny, p.dir));
             }
 
         }
 
 
     }
-
-    public int solution(int[] arr, int K) {
-
+    public int solution(String[] bishops) {
+        // 여기에 코드를 작성해주세요.
         int answer = 0;
-        m = 3;
-        k = K;
-        pm = new int[m];
-        chk = new int[arr.length];
+        List<Point> list = new ArrayList<Point>();
 
-        DFS(0,0,0, arr);
-        answer = ans;
+        int[][] board = new int[8][8];
+        for(String s : bishops){
+            char[] c = s.toCharArray();
+            int x = c[0] - 'A';
+            int y = c[1] - '1';
+
+            BFS(x,y,board);
+        }
+
+
+
         return answer;
     }
 
+
     public static void main(String[] args) {
         Main sol = new Main();
-        int[] arr = {1, 2, 3,4,5};
-        int K = 3;
-        int ret = sol.solution(arr, K);
-
+        String[] bishops1 = {new String("D5")};
+        int ret1 = sol.solution(bishops1);
 
         // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-        System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
+        System.out.println("solution 메소드의 반환 값은 " + ret1 + " 입니다.");
+
+        String[] bishops2 = {new String("D5"), new String("E8"), new String("G2")};
+        int ret2 = sol.solution(bishops2);
+
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+       // System.out.println("solution 메소드의 반환 값은 " + ret2 + " 입니다.");
     }
 }

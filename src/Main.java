@@ -4,44 +4,59 @@ import java.util.Iterator;
 import java.util.List;
 
 class Main {
-    int solution(int[][] teams){
-        List<Integer>  t1 = new ArrayList<Integer>();
-        List<Integer>  t2 = new ArrayList<Integer>();
+    static int m;
+    static int k;
+    static int[] chk;
+    static int[] pm;
+    static int ans = 0;
+    void DFS(int L, int s, int sum, int[] arr){
+        if(L==m){
+            /*for(int i=0 ; i<chk.length; i++){
+                if(chk[i]>0)System.out.print(arr[i]);
 
-        t1.add(teams[0][0]);
-        t1.add(teams[0][1]);
-
-        //초기화
-        for(int i=1; i<teams.length;i++){
-            if(t1.contains(teams[i][0]) || t1.contains(teams[i][1])  ){
-                if(!t1.contains(teams[i][0])){
-                    t1.add(teams[i][0]);
-                }else if(!t1.contains(teams[i][1])){
-                    t1.add(teams[i][1]);
-                }
-            }else{
-
-                if(!t2.contains(teams[i][0]))t2.add(teams[i][0]);
-                if(!t2.contains(teams[i][1]))t2.add(teams[i][1]);
-
+            }*/
+            if(sum%k==0){
+                System.out.println(Arrays.toString(pm));
+                ans++;
             }
+
+
+        }else{
+            for(int i=s;i <arr.length; i++){
+                if(chk[i]==0){
+                    chk[i] = 1;
+                    pm[L] = arr[i];
+                    DFS(L+1, i+1, sum + arr[i] ,arr);
+                    chk[i] = 0;
+                }
+            }
+
         }
 
 
-        System.out.println(t1.toString());
-        System.out.println(t2.toString());
-        return 0;
     }
 
-    // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public int solution(int[] arr, int K) {
+
+        int answer = 0;
+        m = 3;
+        k = K;
+        pm = new int[m];
+        chk = new int[arr.length];
+
+        DFS(0,0,0, arr);
+        answer = ans;
+        return answer;
+    }
+
     public static void main(String[] args) {
         Main sol = new Main();
-        int[][] teams = {{1,2},{2,3},{4,5},{7,5}};
-        int ret1 = sol.solution(teams);
+        int[] arr = {1, 2, 3,4,5};
+        int K = 3;
+        int ret = sol.solution(arr, K);
+
 
         // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-        System.out.println("solution 메소드의 반환 값은 " + ret1 + " 입니다.");
-
-
+        System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
     }
 }
